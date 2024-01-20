@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("auth")
+@RequestMapping("/home")
 public class AuthenticationController {
 
     @Autowired
@@ -27,20 +27,19 @@ public class AuthenticationController {
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody AuthenticationDTO usuario){
         var usernamePassword = new UsernamePasswordAuthenticationToken(usuario.email(),usuario.password());
-
-        var auth = authenticationManager.authenticate(usernamePassword);
+        var auth = this.authenticationManager.authenticate(usernamePassword);
 
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/register")
+    @PostMapping("/cadastro")
     public ResponseEntity registrar (@RequestBody RegisterDTO usuario){
         if (this.repository.findByEmail(usuario.email())!= null){
             return ResponseEntity.badRequest().build(); //caso nao encontre nenhum com o email passado ele permite o registro
         }
 
         String senhaEncripted = new BCryptPasswordEncoder().encode(usuario.password()); //criaçao da senha com criptografia
-        User novoUsuario = new User(usuario.email(), usuario.password(), usuario.role()); //cria o usuario
+        User novoUsuario = new User(usuario.email(), senhaEncripted, usuario.role()); //cria o usuario
 
         this.repository.save(novoUsuario);
 

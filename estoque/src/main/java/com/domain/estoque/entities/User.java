@@ -2,52 +2,41 @@ package com.domain.estoque.entities;
 
 import com.domain.estoque.enums.UserRole;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
-@Table(name = "tb_user")
-@Entity(name = "user")
+@Table(name = "users")
+@Entity(name = "users")
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode(of = "id")
 public class User implements UserDetails {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String id;
     private String email;
     private String password;
+    private UserRole role;
 
-    @ManyToMany
-    @JoinTable(name = "tb_user_role",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<UserRole> roles = new HashSet<>();
-
-    public User() {
-    }
-
-
-    public User(String email, String password,UserRole role) {
+    public User(String email, String password, UserRole role){
         this.email = email;
         this.password = password;
-        this.roles = roles;
+        this.role = role;
     }
-
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-       //if(this.role == role.equals("ADMIN")) return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_USER"));
-       //else return List.of(new SimpleGrantedAuthority("ROLE_USER"));
-        return null;
-    }
-
-    @Override
-    public String getPassword() {
-        return password;
+        if(this.role == UserRole.ADMIN) return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_USER"));
+        else return List.of(new SimpleGrantedAuthority("ROLE_USER"));
     }
 
     @Override
@@ -73,33 +62,5 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public Set<UserRole> getRoles() {
-        return roles;
-    }
-
-    public void addRole(UserRole role){
-        roles.add(role);
     }
 }

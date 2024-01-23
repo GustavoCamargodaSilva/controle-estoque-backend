@@ -21,17 +21,4 @@ public class AuthorizationService implements UserDetailsService {
         return repository.findByEmail(email);
     }
 
-    public RegisterDTO criarUsuario(String email, String senha){
-        User novoUsuario = new User();
-        novoUsuario.setEmail(email);
-        novoUsuario.setPassword(senha);
-        UserRole role = new UserRole("ADMIN");
-        novoUsuario.addRole(role);
-
-        novoUsuario = repository.save(novoUsuario);
-
-        return new RegisterDTO(novoUsuario);
-    }
-
-
 }

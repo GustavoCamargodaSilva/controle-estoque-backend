@@ -25,30 +25,30 @@ public class AuthenticationController {
     private AuthenticationManager authenticationManager;
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    private UserRepository repository;
 
     @Autowired
     private AuthorizationService service;
 
     @PostMapping("/login")
-    public ResponseEntity login(@RequestBody AuthenticationDTO usuario){
-        var usernamePassword = new UsernamePasswordAuthenticationToken(usuario.email(),usuario.password());
+    public ResponseEntity login(@RequestBody AuthenticationDTO data){
+        var usernamePassword = new UsernamePasswordAuthenticationToken(data.email(), data.password());
         var auth = this.authenticationManager.authenticate(usernamePassword);
+
+       //var token = tokenService.generateToken((User) auth.getPrincipal());
 
         return ResponseEntity.ok().build();
     }
 
     @PostMapping("/cadastro")
-    public ResponseEntity registrar (@RequestBody RegisterDTO usuario){
-       //if (this.repository.findByEmail(usuario.getEmail())!= null){
-           // return ResponseEntity.badRequest().build(); //caso nao encontre nenhum com o email passado ele permite o registro
-       // }
-        var senhaEncripted = new BCryptPasswordEncoder().encode(usuario.getPassword()); //criaçao da senha com criptografia
-        usuario = service.criarUsuario(usuario.getEmail(), senhaEncripted);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-                .buildAndExpand(usuario.getId()).toUri();
+    public ResponseEntity register(@RequestBody RegisterDTO data){
+        if(this.repository.findByEmail(data.email()) != null) return ResponseEntity.badRequest().build();
+
+        String encryptedPassword = new BCryptPasswordEncoder().encode(data.password());
+        User newUser = new User(data.email(), encryptedPassword, data.role());
+
+        this.repository.save(newUser);
 
         return ResponseEntity.ok().build();
-
     }
 }

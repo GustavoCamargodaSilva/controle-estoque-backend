@@ -4,7 +4,6 @@ import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
-import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -19,9 +18,9 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfiguration {
 
+
     @Bean
     @Profile("test")
-    @Order(1)
     public SecurityFilterChain h2SecurityFilterChain(HttpSecurity http) throws Exception {
 
         http.securityMatcher(PathRequest.toH2Console()).csrf(csrf -> csrf.disable())
@@ -33,8 +32,7 @@ public class SecurityConfiguration {
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity.csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(autorize -> autorize.requestMatchers(HttpMethod.POST,"/auth/login").permitAll())
-                .authorizeHttpRequests(autorize -> autorize.requestMatchers(HttpMethod.POST,"/auth/register").permitAll())
+                .authorizeHttpRequests(autorize -> autorize.requestMatchers(HttpMethod.POST,"/**").permitAll())
                 //autorizando que qualquer role possa acessar meus end points de loguin e cadastro
                 .build();
     }
@@ -45,9 +43,8 @@ public class SecurityConfiguration {
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
     //lembrete voltar no numero 31:30 para criar a autorizaçao das rotas do sistema.
 }

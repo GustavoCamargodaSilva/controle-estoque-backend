@@ -1,5 +1,8 @@
 package com.domain.estoque.services;
 
+import com.domain.estoque.dto.RegisterDTO;
+import com.domain.estoque.entities.User;
+import com.domain.estoque.enums.UserRole;
 import com.domain.estoque.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,4 +20,18 @@ public class AuthorizationService implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException { //metodo consulta de email
         return repository.findByEmail(email);
     }
+
+    public RegisterDTO criarUsuario(String email, String senha){
+        User novoUsuario = new User();
+        novoUsuario.setEmail(email);
+        novoUsuario.setPassword(senha);
+        UserRole role = new UserRole("ADMIN");
+        novoUsuario.addRole(role);
+
+        novoUsuario = repository.save(novoUsuario);
+
+        return new RegisterDTO(novoUsuario);
+    }
+
+
 }

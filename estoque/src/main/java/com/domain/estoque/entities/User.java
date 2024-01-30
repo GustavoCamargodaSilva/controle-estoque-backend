@@ -2,32 +2,36 @@ package com.domain.estoque.entities;
 
 import com.domain.estoque.enums.UserRole;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
 
-@Table(name = "users")
+@Table(name = "tb_users")
 @Entity(name = "users")
 @Getter
-@NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode(of = "id")
+@Setter
 public class User implements UserDetails {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private String id;
+    private String nome;
+    private LocalDate birthdate;
     private String email;
     private String password;
     private UserRole role;
 
-    public User(String email, String password, UserRole role){
+    public User(){
+
+    }
+
+    public User(String nome, LocalDate birthdate, String email, String password, UserRole role) {
+        this.nome = nome;
+        this.birthdate = birthdate;
         this.email = email;
         this.password = password;
         this.role = role;
@@ -62,5 +66,17 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id='" + id + '\'' +
+                ", nome='" + nome + '\'' +
+                ", birthdate=" + birthdate +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", role=" + role +
+                '}';
     }
 }

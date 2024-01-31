@@ -36,7 +36,7 @@ public class UserService implements UserDetailsService {
         entity.setEmail(dto.getEmail());
         String encryptedPassword = new BCryptPasswordEncoder().encode(dto.getPassword());
         entity.setPassword(encryptedPassword);
-        entity.setBirthdate(dto.birthdate());
-        entity.setRole(UserRole.USER);
+        entity.setBirthdate(dto.getBirthdate());
+        entity.setRole(dto.getRole());
     }
 }

@@ -7,20 +7,20 @@ import java.time.LocalDate;
 
 public class RegisterDTO{
 
-    private String id;
+    private Long id;
     private String nome;
     private LocalDate birthdate;
     private String email;
     private String password;
     private UserRole role;
 
-    public RegisterDTO(String id, String nome, LocalDate birthdate, String email, String password, UserRole role) {
+    public RegisterDTO(Long id, String nome, LocalDate birthdate, String email, String password) {
         this.id = id;
         this.nome = nome;
         this.birthdate = birthdate;
         this.email = email;
         this.password = password;
-        this.role = role;
+        this.role = UserRole.USER;
     }
 
     public RegisterDTO(User entity){
@@ -32,7 +32,7 @@ public class RegisterDTO{
         role = entity.getRole();
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 

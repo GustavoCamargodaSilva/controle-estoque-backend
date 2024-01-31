@@ -16,9 +16,10 @@ import java.util.List;
 @Getter
 @Setter
 public class User implements UserDetails {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private String id;
+    private Long id;
     private String nome;
     private LocalDate birthdate;
     private String email;

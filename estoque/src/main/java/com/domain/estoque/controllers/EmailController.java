@@ -1,13 +1,9 @@
 package com.domain.estoque.controllers;
 
-import com.domain.estoque.dto.EmailDTO;
-import com.domain.estoque.entities.Email;
+import com.domain.estoque.dto.CadastroEmailDTO;
 import com.domain.estoque.services.EmailService;
 import jakarta.validation.Valid;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,7 +15,7 @@ public class EmailController {
     EmailService service;
 
     @PostMapping("/sendEmail")
-    public void enviarEmail(@RequestBody @Valid EmailDTO emailRequestDTO){
+    public void enviarEmail(@RequestBody @Valid CadastroEmailDTO emailRequestDTO){
        this.service.enviarEmail(emailRequestDTO);
     }
 }

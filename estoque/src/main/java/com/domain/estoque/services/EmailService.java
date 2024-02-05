@@ -2,13 +2,10 @@ package com.domain.estoque.services;
 
 import com.amazonaws.services.simpleemail.AmazonSimpleEmailService;
 import com.amazonaws.services.simpleemail.model.*;
-import com.domain.estoque.dto.EmailDTO;
-import com.domain.estoque.entities.Email;
-import com.domain.estoque.repositories.EmailRepository;
+import com.domain.estoque.dto.CadastroEmailDTO;
+import com.domain.estoque.util.TemplateEmail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDateTime;
 
 @Service
 public class EmailService {
@@ -16,7 +13,16 @@ public class EmailService {
     @Autowired
     AmazonSimpleEmailService amazonSimpleEmailService;
 
-    public void enviarEmail(EmailDTO emailDTO) {
+    @Autowired
+    TemplateEmail templateEmail;
+
+    public void enviarEmail(CadastroEmailDTO emailDTO) {
+        String template = emailDTO.getTemplate();
+        switch (template){
+            case "boasvindas":
+                this.templateEmail.emailBoasVindas(emailDTO);
+        }
+
         String emailContent = emailDTO.getBody();
 
         try {

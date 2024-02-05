@@ -1,20 +1,21 @@
 package com.domain.estoque.dto;
 
 import jakarta.persistence.Column;
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 @Data
-public class EmailDTO {
+public class CadastroEmailDTO {
 
     @NotBlank
-    private String sender;
+    private String nome;
+    private String sender = "gugusilvababolim@gmail.com";
     @NotBlank
     private String receiver;
-    @NotBlank
     private String subject;
     @Column(columnDefinition = "TEXT")
     private String body;
+    @NotBlank
+    private String template;
 
 }

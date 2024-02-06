@@ -1,7 +1,7 @@
 package com.domain.estoque.controllers;
 
 import com.domain.estoque.dto.AuthenticationDTO;
-import com.domain.estoque.dto.CadastroEmailDTO;
+import com.domain.estoque.dto.EmailDTO;
 import com.domain.estoque.dto.RegisterDTO;
 import com.domain.estoque.repositories.UserRepository;
 import com.domain.estoque.services.UserService;
@@ -14,6 +14,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.io.IOException;
 import java.net.URI;
 
 @RestController
@@ -46,12 +47,12 @@ public class UserController {
     }
 
     @PostMapping("/cadastro")
-    public ResponseEntity<RegisterDTO> insert(@RequestBody RegisterDTO user){
+    public ResponseEntity<RegisterDTO> insert(@RequestBody RegisterDTO user) throws IOException {
         if(this.repository.findByEmail(user.getEmail()) != null) return ResponseEntity.badRequest().build();
 
         user = service.insert(user);
 
-        CadastroEmailDTO email = new CadastroEmailDTO(user.getEmail(),user.getNome());
+        EmailDTO email = new EmailDTO(user.getEmail(),user.getNome(), "boasvindas");
 
         this.emailController.enviarEmail(email);
 

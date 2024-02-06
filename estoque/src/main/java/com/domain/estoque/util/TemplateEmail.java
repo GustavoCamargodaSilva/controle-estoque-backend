@@ -1,25 +1,53 @@
 package com.domain.estoque.util;
 
-import com.domain.estoque.dto.CadastroEmailDTO;
+import com.domain.estoque.dto.EmailDTO;
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 
 @Component
 @Data
 public class TemplateEmail {
 
-    public CadastroEmailDTO emailBoasVindas(CadastroEmailDTO emailDTO){
+    @Value("${app.key.path-template-boasvindas}")
+    private String path;
 
-        emailDTO.setSubject("Bem-vindo ao sistema de Estoque");
-        emailDTO.setBody("<!DOCTYPE html><b> Olá, " + emailDTO.getNome() +
-                ".<br><br>" +
-                " Estamos empolgados em tê-lo(a) conosco.<br><br>" +
-                " Agradecemos por escolher a nossa plataforma. Estamos aqui para tornar a sua experiência incrível.<br><br>" +
-                " Não hesite em explorar e descobrir tudo o que nosso sistema tem a oferecer. Se surgirem dúvidas," +
-                " nossa equipe de suporte estará pronta para ajudar.<br><br>" +
-                " Agradecemos por se juntar a nós! Estamos ansiosos para ter uma jornada incrível juntos.<br><br>" +
-                " Atenciosamente, <br><br>" +
-                " Gustavo Camargo </b></html>");
+    @Value("${app.key.boasvindas}")
+    private String subject;
+
+    @Value("${app.key.email}")
+    private String sender;
+
+    public EmailDTO emailTemplate(EmailDTO emailDTO) throws IOException {
+
+        emailDTO.setSubject(subject);
+        emailDTO.setReceiver(emailDTO.getReceiver());
+        emailDTO.setSender(sender);
+
+        BufferedReader br = null;
+
+        try{
+            br = new BufferedReader(new FileReader(path));
+
+            String line = br.readLine();
+
+            while (line != null){
+                emailDTO.setBody(line);
+                line = br.readLine();
+            }
+
+        }catch (IOException e) {
+            throw new RuntimeException(e.getMessage());
+        }finally {
+            if (br != null){
+                br.close();
+            }
+        }
+
         return emailDTO;
 
     }

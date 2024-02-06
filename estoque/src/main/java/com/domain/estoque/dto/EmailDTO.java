@@ -5,20 +5,22 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 @Data
-public class CadastroEmailDTO {
+public class EmailDTO {
 
+    @NotBlank
     private String nome;
     private String sender;
+    @NotBlank
     private String receiver;
     private String subject;
     @Column(columnDefinition = "TEXT")
     private String body;
+    @NotBlank
     private String template;
 
-    public CadastroEmailDTO(String email, String nome) {
+    public EmailDTO(String email, String nome,String template) {
         this.nome = nome;
         this.receiver = email;
-        this.sender = "gugusilvababolim@gmail.com";
-        this.template = "boasvindas";
+        this.template = template;
     }
 }

@@ -1,6 +1,7 @@
 package com.domain.estoque.controllers;
 
 import com.domain.estoque.dto.AuthenticationDTO;
+import com.domain.estoque.dto.CadastroEmailDTO;
 import com.domain.estoque.dto.RegisterDTO;
 import com.domain.estoque.repositories.UserRepository;
 import com.domain.estoque.services.UserService;
@@ -28,6 +29,9 @@ public class UserController {
     @Autowired
     private UserService service;
 
+    @Autowired
+    private EmailController emailController;
+
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody AuthenticationDTO user){
         try{
@@ -36,8 +40,6 @@ public class UserController {
         }catch (RuntimeException e){
             throw new ForbiddenException("E-mail ou Senha incorretos.", HttpStatus.FORBIDDEN);
         }
-
-
        //var token = tokenService.generateToken((User) auth.getPrincipal());
 
         return ResponseEntity.ok().build();
@@ -46,9 +48,16 @@ public class UserController {
     @PostMapping("/cadastro")
     public ResponseEntity<RegisterDTO> insert(@RequestBody RegisterDTO user){
         if(this.repository.findByEmail(user.getEmail()) != null) return ResponseEntity.badRequest().build();
-       user = service.insert(user);
+
+        user = service.insert(user);
+
+        CadastroEmailDTO email = new CadastroEmailDTO(user.getEmail(),user.getNome());
+
+        this.emailController.enviarEmail(email);
+
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(user.getId()).toUri();
+
         return ResponseEntity.created(uri).body(user);
     }
 }

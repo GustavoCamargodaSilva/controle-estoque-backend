@@ -20,7 +20,6 @@ public class SecurityConfiguration {
 
 
     @Bean
-    @Profile("test")
     public SecurityFilterChain h2SecurityFilterChain(HttpSecurity http) throws Exception {
 
         http.securityMatcher(PathRequest.toH2Console()).csrf(csrf -> csrf.disable())

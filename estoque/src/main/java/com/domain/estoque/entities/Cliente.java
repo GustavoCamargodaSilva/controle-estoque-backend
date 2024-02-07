@@ -1,11 +1,8 @@
 package com.domain.estoque.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.domain.estoque.enums.ClienteEnum;
+import jakarta.persistence.*;
+import lombok.*;
 
 import java.time.LocalDate;
 
@@ -14,11 +11,16 @@ import java.time.LocalDate;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Setter
+@Getter
 public class Cliente {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
     private String cpf;
     private String nome;
     private LocalDate birthdate;
+    private ClienteEnum statusCliente;
 
 }

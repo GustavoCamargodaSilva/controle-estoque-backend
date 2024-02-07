@@ -31,7 +31,9 @@ public class SecurityConfiguration {
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity.csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(autorize -> autorize.requestMatchers(HttpMethod.POST,"/**").permitAll())
+                .authorizeHttpRequests(autorize -> autorize.requestMatchers(HttpMethod.POST,"/**").permitAll()).authorizeHttpRequests(
+                        autorize -> autorize.requestMatchers(HttpMethod.GET,"/**").permitAll()
+                )
                 //autorizando que qualquer role possa acessar meus end points de loguin e cadastro
                 .build();
     }

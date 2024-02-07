@@ -8,6 +8,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class ClienteService {
 
@@ -21,5 +23,11 @@ public class ClienteService {
         entity.setStatusCliente(status);
         this.repository.save(entity);
         return new ClienteDTO(entity);
+    }
+
+    public ClienteDTO procurarCliente(String email) {
+        Cliente cliente = repository.findByCpf(email);
+
+        return new ClienteDTO(cliente);
     }
 }

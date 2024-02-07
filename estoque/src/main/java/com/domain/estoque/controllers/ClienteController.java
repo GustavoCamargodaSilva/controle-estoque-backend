@@ -5,10 +5,7 @@ import com.domain.estoque.services.ClienteService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
@@ -19,6 +16,14 @@ public class ClienteController {
 
     @Autowired
     private ClienteService service;
+
+    @GetMapping("/{email}")
+    public ResponseEntity<ClienteDTO> procurarCliente(@PathVariable String email){
+
+        ClienteDTO dto = this.service.procurarCliente(email);
+
+        return ResponseEntity.ok(dto);
+    }
 
     @PostMapping("/cadastrar")
     public ResponseEntity<ClienteDTO> cadastrarCliente(@RequestBody @Valid ClienteDTO novoCliente){

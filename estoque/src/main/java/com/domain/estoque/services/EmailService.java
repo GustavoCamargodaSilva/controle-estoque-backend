@@ -21,11 +21,8 @@ public class EmailService {
 
     @Transactional
     public void enviarEmail(EmailDTO emailDTO) throws IOException {
-        String template = emailDTO.getTemplate();
-        switch (template){
-            case "boasvindas":
-                this.templateEmail.emailTemplate(emailDTO);
-        }
+
+        this.templateEmail.emailTemplate(emailDTO);
 
         String emailContent = emailDTO.getBody();
 

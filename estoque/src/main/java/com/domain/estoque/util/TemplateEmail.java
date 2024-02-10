@@ -14,7 +14,7 @@ import java.io.IOException;
 public class TemplateEmail {
 
     @Value("${app.key.path-template-boasvindas}")
-    private String path;
+    private String pathBoasVindas;
 
     @Value("${app.key.boasvindas}")
     private String subject;
@@ -24,9 +24,19 @@ public class TemplateEmail {
 
     public EmailDTO emailTemplate(EmailDTO emailDTO) throws IOException {
 
+        String path = null;
+
         emailDTO.setSubject(subject);
         emailDTO.setReceiver(emailDTO.getReceiver());
         emailDTO.setSender(sender);
+        String template = emailDTO.getTemplate();
+
+        switch (template){
+            case "boasvindas":
+            path = pathBoasVindas;
+            case " ":
+                break;
+        }
 
         BufferedReader br = null;
 

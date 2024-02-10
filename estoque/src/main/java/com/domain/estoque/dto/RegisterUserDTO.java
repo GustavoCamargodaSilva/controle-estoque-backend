@@ -5,7 +5,7 @@ import com.domain.estoque.enums.UserRole;
 
 import java.time.LocalDate;
 
-public class RegisterDTO{
+public class RegisterUserDTO {
 
     private Long id;
     private String nome;
@@ -14,7 +14,7 @@ public class RegisterDTO{
     private String password;
     private UserRole role;
 
-    public RegisterDTO(Long id, String nome, LocalDate birthdate, String email, String password) {
+    public RegisterUserDTO(Long id, String nome, LocalDate birthdate, String email, String password) {
         this.id = id;
         this.nome = nome;
         this.birthdate = birthdate;
@@ -23,7 +23,7 @@ public class RegisterDTO{
         this.role = UserRole.USER;
     }
 
-    public RegisterDTO(User entity){
+    public RegisterUserDTO(User entity){
         id = entity.getId();
         nome = entity.getNome();
         birthdate = entity.getBirthdate();

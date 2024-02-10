@@ -22,5 +22,6 @@ public class Cliente {
     private String nome;
     private LocalDate birthdate;
     private ClienteEnum statusCliente;
+    private String email;
 
 }

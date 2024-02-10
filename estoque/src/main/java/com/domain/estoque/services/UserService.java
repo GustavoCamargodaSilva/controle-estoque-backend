@@ -1,8 +1,7 @@
 package com.domain.estoque.services;
 
-import com.domain.estoque.dto.RegisterDTO;
+import com.domain.estoque.dto.RegisterUserDTO;
 import com.domain.estoque.entities.User;
-import com.domain.estoque.enums.UserRole;
 import com.domain.estoque.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -24,14 +23,14 @@ public class UserService implements UserDetailsService {
     }
 
     @Transactional
-    public RegisterDTO insert(RegisterDTO dto) {
+    public RegisterUserDTO insert(RegisterUserDTO dto) {
         User entity = new User();
         CopiarDtoParaEntity(entity,dto);
         entity = repository.save(entity);
-        return new RegisterDTO(entity);
+        return new RegisterUserDTO(entity);
     }
 
-    public void CopiarDtoParaEntity(User entity, RegisterDTO dto) {
+    public void CopiarDtoParaEntity(User entity, RegisterUserDTO dto) {
         entity.setNome(dto.getNome());
         entity.setEmail(dto.getEmail());
         String encryptedPassword = new BCryptPasswordEncoder().encode(dto.getPassword());

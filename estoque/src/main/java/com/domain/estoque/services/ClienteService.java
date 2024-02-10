@@ -29,6 +29,7 @@ public class ClienteService {
 
     @Transactional
     public ClienteDTO procurarCliente(String email) {
+
         Cliente cliente = repository.findByCpf(email);
 
         return new ClienteDTO(cliente);

@@ -2,7 +2,7 @@ package com.domain.estoque.controllers;
 
 import com.domain.estoque.dto.AuthenticationDTO;
 import com.domain.estoque.dto.EmailDTO;
-import com.domain.estoque.dto.RegisterDTO;
+import com.domain.estoque.dto.RegisterUserDTO;
 import com.domain.estoque.repositories.UserRepository;
 import com.domain.estoque.services.UserService;
 import com.domain.estoque.services.exceptions.ForbiddenException;
@@ -47,7 +47,7 @@ public class UserController {
     }
 
     @PostMapping("/cadastro")
-    public ResponseEntity<RegisterDTO> insert(@RequestBody RegisterDTO user) throws IOException {
+    public ResponseEntity<RegisterUserDTO> insert(@RequestBody RegisterUserDTO user) throws IOException {
         if(this.repository.findByEmail(user.getEmail()) != null) return ResponseEntity.badRequest().build();
 
         user = service.insert(user);

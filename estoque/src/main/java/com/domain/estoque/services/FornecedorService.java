@@ -19,10 +19,8 @@ public class FornecedorService {
         restTemplate = restTemplateBuilder.build();
 
         FornecedorDTO dto = restTemplate.getForObject(
-                "https://receitaws.com.br/v1/cnpj/00000000000191", FornecedorDTO.class
+                acessKeyApi.concat(cnpj), FornecedorDTO.class
         );
-
-        System.out.println(dto);
 
         return dto;
     }

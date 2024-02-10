@@ -21,7 +21,6 @@ public class ClienteController {
     public ResponseEntity<ClienteDTO> procurarCliente(@PathVariable String email){
 
         ClienteDTO dto = this.service.procurarCliente(email);
-
         return ResponseEntity.ok(dto);
     }
 

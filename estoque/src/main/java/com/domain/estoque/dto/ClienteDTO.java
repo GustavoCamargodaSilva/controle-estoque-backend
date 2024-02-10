@@ -23,6 +23,8 @@ public class ClienteDTO {
     private String nome;
     @NotNull
     private LocalDate birthdate;
+    @NotNull
+    private String email;
     private ClienteEnum statusCliente;
 
     public ClienteDTO(Cliente entity){
@@ -31,6 +33,7 @@ public class ClienteDTO {
         this.nome = entity.getNome();
         this.birthdate = entity.getBirthdate();
         this.statusCliente = entity.getStatusCliente();
+        this.email = entity.getEmail();
     }
 
 }

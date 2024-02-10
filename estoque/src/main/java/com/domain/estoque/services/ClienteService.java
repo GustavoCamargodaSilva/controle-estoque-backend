@@ -7,6 +7,7 @@ import com.domain.estoque.repositories.ClienteRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -16,6 +17,7 @@ public class ClienteService {
     @Autowired
     private ClienteRepository repository;
 
+    @Transactional
     public ClienteDTO cadastrarCliente(ClienteDTO novoCliente) {
         Cliente entity = new Cliente();
         BeanUtils.copyProperties(novoCliente,entity);
@@ -25,6 +27,7 @@ public class ClienteService {
         return new ClienteDTO(entity);
     }
 
+    @Transactional
     public ClienteDTO procurarCliente(String email) {
         Cliente cliente = repository.findByCpf(email);
 

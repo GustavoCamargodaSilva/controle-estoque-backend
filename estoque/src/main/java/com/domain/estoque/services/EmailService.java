@@ -6,6 +6,7 @@ import com.domain.estoque.dto.EmailDTO;
 import com.domain.estoque.util.TemplateEmail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 
@@ -18,6 +19,7 @@ public class EmailService {
     @Autowired
     TemplateEmail templateEmail;
 
+    @Transactional
     public void enviarEmail(EmailDTO emailDTO) throws IOException {
         String template = emailDTO.getTemplate();
         switch (template){

@@ -18,10 +18,8 @@ public class FornecedorService {
         RestTemplateBuilder restTemplateBuilder = new RestTemplateBuilder();
         restTemplate = restTemplateBuilder.build();
 
-        FornecedorDTO dto = restTemplate.getForObject(
+        return restTemplate.getForObject(
                 acessKeyApi.concat(cnpj), FornecedorDTO.class
         );
-
-        return dto;
     }
 }

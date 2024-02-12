@@ -3,6 +3,11 @@ package com.domain.estoque.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 @Entity(name = "fornecedor")
 @Table(name = "tb_fornecedor")
 @Data
@@ -40,4 +45,7 @@ public class Fornecedor {
     private String situacao_especial;
     private String data_situacao_especial;
     private String capital_social;
+
+    @OneToMany(mappedBy = "fornecedor")
+    private List<Produto> produtos = new ArrayList<>();
 }

@@ -3,6 +3,10 @@ package com.domain.estoque.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 @Entity(name = "produto")
 @Table(name = "tb_produto")
 @Data
@@ -24,6 +28,12 @@ public class Produto {
     @JoinColumn(name = "fornecedor_id")
     private Fornecedor fornecedor;
 
+    @OneToMany(mappedBy = "id.produto")
+    private Set<ProdutoUnidade> produto = new HashSet<>();
 
+    public List<Produto> getProdutos(){
+        return produto.stream().map(
+                x -> x.getProduto()).toList();
+    }
 
 }

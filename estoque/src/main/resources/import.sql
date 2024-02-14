@@ -1,0 +1,1 @@
+INSERT INTO tb_users(id,nome,birthdate,email,password,role) VALUES (1,'Gustavo','1997-08-02','gugusilvababolim@gmail.com','123456',0);

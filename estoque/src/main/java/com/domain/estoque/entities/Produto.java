@@ -15,6 +15,7 @@ public class Produto {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long codProduto;
+    private String nome;
     @Column(columnDefinition = "TEXT")
     private String descricao;
     private Double preco;

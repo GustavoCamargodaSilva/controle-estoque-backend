@@ -1,19 +1,14 @@
-package com.domain.estoque.entities;
+package com.domain.estoque.dto;
 
-import jakarta.persistence.*;
 import lombok.*;
 
-@Entity(name = "filial")
-@Table(name = "tb_filial")
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
-public class Filial {
+public class FilialDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String status;
     private String ultima_atualizacao;

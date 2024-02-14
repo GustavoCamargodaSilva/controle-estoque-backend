@@ -2,6 +2,7 @@ package com.domain.estoque.controllers;
 
 import com.domain.estoque.dto.FornecedorDTO;
 import com.domain.estoque.services.FornecedorService;
+import com.domain.estoque.util.ConsumoApiCnpj;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +15,7 @@ public class FornecedorController {
 
     @Autowired
     FornecedorService service;
+
 
     @GetMapping("/{cnpj}")
     public ResponseEntity<FornecedorDTO> consultarCnpj(@PathVariable String cnpj) throws IOException {

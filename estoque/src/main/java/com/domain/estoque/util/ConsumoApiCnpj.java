@@ -31,8 +31,10 @@ public class ConsumoApiCnpj {
         RestTemplateBuilder restTemplateBuilder = new RestTemplateBuilder();
         restTemplate = restTemplateBuilder.build();
 
-        return restTemplate.getForObject(
-                acessKeyApi.concat(cnpj), FilialDTO.class
-        );
+        FilialDTO dto = restTemplate.getForObject(acessKeyApi.concat(cnpj), FilialDTO.class);
+        dto.setCnpj(dto.getCnpj().replace(".", ""));
+        dto.setCnpj(dto.getCnpj().replace("/", ""));
+        dto.setCnpj(dto.getCnpj().replace("-", ""));
+        return dto;
     }
 }

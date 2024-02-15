@@ -20,8 +20,7 @@ public class FornecedorController {
     @GetMapping("/{cnpj}")
     public ResponseEntity<FornecedorDTO> consultarCnpj(@PathVariable String cnpj) throws IOException {
 
-        FornecedorDTO
-                dto = this.service.consultarCnpj(cnpj);
+        FornecedorDTO dto = this.service.consultarCnpj(cnpj);
         return ResponseEntity.ok(dto);
     }
 

@@ -2,3 +2,4 @@ INSERT INTO tb_users(id,nome,birthdate,email,password,role) VALUES (1,'Gustavo',
 
 
 INSERT INTO tb_cliente(birthdate,status_cliente,id,cpf,email,nome) VALUES ('1997-08-02',0,1,'08446872943','gugusilvababolim@gmail.com','Gustavo Camargo');
+

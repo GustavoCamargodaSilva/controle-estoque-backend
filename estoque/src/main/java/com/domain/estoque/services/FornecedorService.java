@@ -17,7 +17,6 @@ public class FornecedorService {
 
     public FornecedorDTO consultarCnpj(String cnpj){
         FornecedorDTO dto = this.consultarCnpj.consultarCnpjFornecedor(cnpj);
-
         return dto;
     }
 }

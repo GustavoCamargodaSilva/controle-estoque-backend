@@ -33,6 +33,12 @@ public class UserController {
     @Autowired
     private EmailController emailController;
 
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<RegisterUserDTO> findById(@PathVariable Long id){
+        RegisterUserDTO dto = service.findById(id);
+        return ResponseEntity.ok(dto);
+    }
+
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody AuthenticationDTO user){
         try{

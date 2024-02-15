@@ -30,6 +30,13 @@ public class UserService implements UserDetailsService {
         return new RegisterUserDTO(entity);
     }
 
+    @Transactional
+    public RegisterUserDTO findById(Long id){
+        User user = repository.findById(id).orElseThrow();
+        return new RegisterUserDTO(user);
+
+    }
+
     public void CopiarDtoParaEntity(User entity, RegisterUserDTO dto) {
         entity.setNome(dto.getNome());
         entity.setEmail(dto.getEmail());

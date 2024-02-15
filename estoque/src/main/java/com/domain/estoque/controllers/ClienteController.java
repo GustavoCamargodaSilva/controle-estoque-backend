@@ -23,9 +23,16 @@ public class ClienteController {
     private EmailController emailController;
 
     @GetMapping("/{email}")
-    public ResponseEntity<ClienteDTO> procurarCliente(@PathVariable String email){
+    public ResponseEntity<ClienteDTO> procurarClienteEmail(@PathVariable String email){
 
-        ClienteDTO dto = this.service.procurarCliente(email);
+        ClienteDTO dto = this.service.procurarClienteEmail(email);
+        return ResponseEntity.ok(dto);
+    }
+
+    @GetMapping("/procurar/{cpf}")
+    public ResponseEntity<ClienteDTO> procurarClienteCpf(@PathVariable String cpf){
+
+        ClienteDTO dto = this.service.procurarClienteCpf(cpf);
         return ResponseEntity.ok(dto);
     }
 

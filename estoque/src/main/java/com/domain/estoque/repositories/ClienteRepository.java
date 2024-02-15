@@ -7,5 +7,7 @@ import java.util.Optional;
 
 public interface ClienteRepository extends JpaRepository<Cliente,Long> {
 
+    Cliente findByEmail(String Email);
+
     Cliente findByCpf(String cpf);
 }

@@ -6,6 +6,7 @@ import com.domain.estoque.dto.RegisterUserDTO;
 import com.domain.estoque.repositories.UserRepository;
 import com.domain.estoque.services.UserService;
 import com.domain.estoque.services.exceptions.ForbiddenException;
+import jdk.javadoc.doclet.Reporter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -39,6 +40,12 @@ public class UserController {
         return ResponseEntity.ok(dto);
     }
 
+    @GetMapping(value = "/profile")
+    public ResponseEntity<RegisterUserDTO> findProfile(){
+        RegisterUserDTO dto = service.getMe();
+        return ResponseEntity.ok(dto);
+    }
+
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody AuthenticationDTO user){
         try{
@@ -54,7 +61,7 @@ public class UserController {
 
     @PostMapping("/cadastro")
     public ResponseEntity<RegisterUserDTO> insert(@RequestBody RegisterUserDTO user) throws IOException {
-        if(this.repository.findByEmail(user.getEmail()) != null) return ResponseEntity.badRequest().build();
+        if(this.repository.findByEmail(user.getEmail()).isPresent()) return ResponseEntity.badRequest().build();
 
         user = service.insert(user);
 

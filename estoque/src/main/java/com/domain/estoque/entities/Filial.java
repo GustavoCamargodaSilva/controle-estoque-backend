@@ -3,6 +3,9 @@ package com.domain.estoque.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity(name = "filial")
 @Table(name = "tb_filial")
 @Data
@@ -40,4 +43,5 @@ public class Filial {
     private String situacao_especial;
     private String data_situacao_especial;
     private String capital_social;
+
 }

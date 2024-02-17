@@ -1,6 +1,7 @@
 package com.domain.estoque.services;
 
 import com.domain.estoque.dto.FilialDTO;
+import com.domain.estoque.dto.FilialMinDTO;
 import com.domain.estoque.entities.Filial;
 import com.domain.estoque.repositories.FilialRepository;
 import com.domain.estoque.util.ConsumoApiCnpj;
@@ -8,10 +9,13 @@ import org.hibernate.sql.exec.spi.StandardEntityInstanceResolver;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class FilialService {
@@ -42,5 +46,9 @@ public class FilialService {
         return new FilialDTO(convert);
     }
 
-
+    @Transactional
+    public List<FilialMinDTO> findAll() {
+        List<Filial> result = filialRepository.findAll();
+        return result.stream().map(FilialMinDTO::new).collect(Collectors.toList());
+    }
 }

@@ -18,7 +18,6 @@ public class ProdutoUnidade {
     @EmbeddedId
     private ProdutoUnidadePK id = new ProdutoUnidadePK();
 
-
     private Integer saldo;
 
     public ProdutoUnidade(Produto produto, Filial filial, Integer saldo){

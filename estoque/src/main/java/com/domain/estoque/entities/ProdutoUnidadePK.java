@@ -20,7 +20,6 @@ public class ProdutoUnidadePK {
     public ProdutoUnidadePK(){
 
     }
-
     public ProdutoUnidadePK(Produto produto, Filial filial) {
         this.produto = produto;
         this.filial = filial;

@@ -3,7 +3,6 @@ package com.domain.estoque.controllers;
 import com.domain.estoque.dto.FilialDTO;
 import com.domain.estoque.dto.FilialMinDTO;
 import com.domain.estoque.entities.Filial;
-import com.domain.estoque.entities.Produto;
 import com.domain.estoque.repositories.FilialRepository;
 import com.domain.estoque.services.FilialService;
 import com.domain.estoque.services.exceptions.ResourceNotFoundException;
@@ -26,7 +25,7 @@ public class FilialController {
     @Autowired
     private FilialRepository repository;
 
-    @GetMapping("/listarfilial")
+    @GetMapping("/listar")
     public ResponseEntity<List<FilialMinDTO>> findAll(){
         List<FilialMinDTO> resultado = service.findAll();
         return ResponseEntity.ok(resultado);
@@ -56,7 +55,7 @@ public class FilialController {
                 return ResponseEntity.ok(dto);
             }
         }catch (Exception e){
-            throw new ResourceNotFoundException("caiu na exception");
+            throw new ResourceNotFoundException("CNPJ NAO ENCONTRADO NA RECEITA E NAO CADASTRADO NO BANCO DE DADOS.");
         }
 
     }

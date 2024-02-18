@@ -48,4 +48,8 @@ public class Fornecedor {
 
     @OneToMany(mappedBy = "fornecedor")
     private List<Produto> produtos = new ArrayList<>();
+
+    public void adicionarProduto(Produto produto){
+        produtos.add(produto);
+    }
 }

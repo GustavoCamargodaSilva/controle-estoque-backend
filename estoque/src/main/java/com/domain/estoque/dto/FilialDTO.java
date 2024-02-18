@@ -2,7 +2,6 @@ package com.domain.estoque.dto;
 
 import com.domain.estoque.entities.Filial;
 import lombok.*;
-import org.springframework.beans.BeanUtils;
 
 @Data
 @AllArgsConstructor

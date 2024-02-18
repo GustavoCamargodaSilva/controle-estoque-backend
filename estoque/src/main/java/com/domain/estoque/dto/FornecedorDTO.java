@@ -1,7 +1,12 @@
 package com.domain.estoque.dto;
 
 
+import com.domain.estoque.entities.Fornecedor;
+import com.domain.estoque.entities.Produto;
 import lombok.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -36,4 +41,39 @@ public class FornecedorDTO {
     private String situacao_especial;
     private String data_situacao_especial;
     private String capital_social;
+
+    private List<Produto> produtos = new ArrayList<>();
+
+    public void adicionarProduto(Produto produto){
+        produtos.add(produto);
+    }
+
+    public FornecedorDTO(Fornecedor entity) {
+        id = entity.getId();
+        status = entity.getStatus();
+        ultima_atualizacao = entity.getUltima_atualizacao();
+        cnpj = entity.getCnpj();
+        tipo = entity.getTipo();
+        porte = entity.getPorte();
+        nome = entity.getNome();
+        fantasia = entity.getFantasia();
+        abertura = entity.getAbertura();
+        natureza_juridica = entity.getNatureza_juridica();
+        logradouro = entity.getLogradouro();
+        numero = entity.getNumero();
+        complemento = entity.getComplemento();
+        cep = entity.getCep();
+        bairro = entity.getBairro();
+        municipio = entity.getMunicipio();
+        uf = entity.getUf();
+        email = entity.getEmail();
+        telefone = entity.getTelefone();
+        efr = entity.getEfr();
+        situacao = entity.getSituacao();
+        data_situacao = entity.getData_situacao();
+        motivo_situacao = entity.getMotivo_situacao();
+        situacao_especial = entity.getSituacao_especial();
+        data_situacao_especial = entity.getData_situacao_especial();
+        capital_social = entity.getCapital_social();
+    }
 }

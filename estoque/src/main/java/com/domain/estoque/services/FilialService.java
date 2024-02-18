@@ -5,11 +5,9 @@ import com.domain.estoque.dto.FilialMinDTO;
 import com.domain.estoque.entities.Filial;
 import com.domain.estoque.repositories.FilialRepository;
 import com.domain.estoque.util.ConsumoApiCnpj;
-import org.hibernate.sql.exec.spi.StandardEntityInstanceResolver;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.userdetails.UserDetails;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

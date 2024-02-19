@@ -1,5 +1,6 @@
 package com.domain.estoque.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -8,7 +9,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-@Entity(name = "fornecedor")
+@Entity
 @Table(name = "tb_fornecedor")
 @Data
 @NoArgsConstructor
@@ -20,15 +21,9 @@ public class Fornecedor {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String status;
-    private String ultima_atualizacao;
     private String cnpj;
-    private String tipo;
-    private String porte;
     private String nome;
     private String fantasia;
-    private String abertura;
-    private String natureza_juridica;
     private String logradouro;
     private String numero;
     private String complemento;
@@ -38,18 +33,5 @@ public class Fornecedor {
     private String uf;
     private String email;
     private String telefone;
-    private String efr;
-    private String situacao;
-    private String data_situacao;
-    private String motivo_situacao;
-    private String situacao_especial;
-    private String data_situacao_especial;
-    private String capital_social;
 
-    @OneToMany(mappedBy = "fornecedor")
-    private List<Produto> produtos = new ArrayList<>();
-
-    public void adicionarProduto(Produto produto){
-        produtos.add(produto);
-    }
 }
